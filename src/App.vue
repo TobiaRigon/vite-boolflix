@@ -15,8 +15,12 @@ export default {
   data() {
     return {
       store,
+      searchResults: [],
     }
   },
+
+
+
   methods: {
 
     searchMovies(searchTerm) {
@@ -28,16 +32,18 @@ export default {
 
       axios.get(myURL)
         .then(response => {
-          this.searchResults = response.data.results;
-          console.log(this.searchResults);
+          if (searchTerm === undefined) {
+            this.searchResults = [];
+          } else {
+            this.searchResults = response.data.results
+          };
+
+          console.log(this.searchResults, this.searchResults.length);
         })
         .catch(error => {
           console.error("Errore durante la ricerca di film:", error);
         });
     },
-
-
-
 
   },
 
@@ -55,7 +61,7 @@ export default {
 
 <template>
   <AppHeader @SearchMovies="searchMovies" />
-  <AppMain />
+  <AppMain :searchResults="searchResults" />
 </template>
 
 <style scoped></style>

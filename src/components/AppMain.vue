@@ -1,9 +1,16 @@
 <script >
 
+import AppCard from './AppCard.vue';
+
 export default {
     name: "AppMain",
+
+    components: {
+        AppCard,
+    },
+
     props: {
-        searchResults: Array, // Proprietà per ricevere i risultati della ricerca da AppHeader
+        searchResults: Array,
     },
 
 };
@@ -14,17 +21,11 @@ export default {
     <main>
         <div>
             <h1>Risultati della ricerca:</h1>
-            <div v-if="searchResults && searchResults.length > 0" class="search-results">
-                <div v-for="result in searchResults" :key="result.id" class="result-item">
-                    <h2>{{ result.title || result.name }}</h2>
-                    <p>Titolo Originale: {{ result.original_title || result.original_name }}</p>
-                    <p>Lingua: {{ result.original_language }}</p>
-                    <p>Voto: {{ result.vote_average }}</p>
-                    <!-- Aggiungi altre informazioni desiderate -->
-                </div>
+            <div v-if="searchResults.length > 0" class="search-results">
+                <AppCard />
             </div>
             <div v-else>
-                <p>Nessun risultato trovato</p>
+                <div>Nessun risultato trovato</div>
             </div>
         </div>
     </main>
