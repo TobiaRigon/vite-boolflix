@@ -25,7 +25,7 @@ export default {
 
     searchMovies(searchTerm) {
       this.searchTerm = searchTerm;
-      let myURL = `${store.apiURL}${store.apiKey}&query=${this.searchTerm}`;
+      let myURL = `${store.apiURL}${store.apiKey}&language=it_IT&query=${this.searchTerm}`;
 
       // Log aggiuntivo per verificare il valore di myURL
       console.log('myURL:', myURL, searchTerm);
