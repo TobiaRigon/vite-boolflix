@@ -3,31 +3,40 @@
 import axios from 'axios';
 import { store } from '../store';
 
+import AppMain from './AppMain.vue';
+
 export default {
   name: "AppHeader",
+
+  components: {
+    AppMain,
+  },
 
   data() {
     return {
       store,
-      searchTherm: '',
+      searchTerm: '',
+      searchResults: [],
     }
   },
 
   methods: {
     searchMovies() {
 
-      // axios
-      //     .get(store.arcURL)
 
-      //     .then((res) => {
-      // const archetypes = res.data.slice(0, 30).map(item => item.archetype_name);
-      // store.archetypes = archetypes;
-      // console.log(archetypes);
-      //     })
-      //     .catch((err) => {
-      //       console.log('Errori', err);
-      //     });
+      let myURL = `${store.apiURL}${store.apiKey}&query=${this.searchTerm}`;
 
+      // Log aggiuntivo per verificare il valore di myURL
+      console.log('myURL:', myURL);
+
+      axios.get(myURL)
+        .then(response => {
+          this.searchResults = response.data.results;
+          console.log(this.searchResults);
+        })
+        .catch(error => {
+          console.error("Errore durante la ricerca di film:", error);
+        });
     },
 
 
