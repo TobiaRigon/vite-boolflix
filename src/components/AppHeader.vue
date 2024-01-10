@@ -20,29 +20,6 @@ export default {
     }
   },
 
-  methods: {
-    searchMovies() {
-
-
-      let myURL = `${store.apiURL}${store.apiKey}&query=${this.searchTerm}`;
-
-      // Log aggiuntivo per verificare il valore di myURL
-      console.log('myURL:', myURL);
-
-      axios.get(myURL)
-        .then(response => {
-          this.searchResults = response.data.results;
-          console.log(this.searchResults);
-        })
-        .catch(error => {
-          console.error("Errore durante la ricerca di film:", error);
-        });
-    },
-
-
-
-
-  },
 
 };
 
@@ -52,7 +29,7 @@ export default {
   <header>
     <div class="search-bar">
       <input v-model="searchTerm" placeholder="Cerca film o serie TV" />
-      <button @click="searchMovies">Cerca</button>
+      <button @click="$emit('searchMovies')">Cerca</button>
     </div>
   </header>
 </template>
