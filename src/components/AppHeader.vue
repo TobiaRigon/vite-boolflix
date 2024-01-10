@@ -29,7 +29,7 @@ export default {
   <header>
     <div class="search-bar">
       <input v-model="searchTerm" placeholder="Cerca film o serie TV" />
-      <button @click="$emit('searchMovies')">Cerca</button>
+      <button @click="$emit('SearchMovies', searchTerm)">Cerca</button>
     </div>
   </header>
 </template>

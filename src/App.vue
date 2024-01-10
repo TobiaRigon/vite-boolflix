@@ -18,13 +18,13 @@ export default {
     }
   },
   methods: {
-    searchMovies() {
 
-
+    searchMovies(searchTerm) {
+      this.searchTerm = searchTerm;
       let myURL = `${store.apiURL}${store.apiKey}&query=${this.searchTerm}`;
 
       // Log aggiuntivo per verificare il valore di myURL
-      console.log('myURL:', myURL);
+      console.log('myURL:', myURL, searchTerm);
 
       axios.get(myURL)
         .then(response => {
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <template>
-  <AppHeader />
+  <AppHeader @SearchMovies="searchMovies" />
   <AppMain />
 </template>
 
