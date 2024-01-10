@@ -22,7 +22,10 @@ export default {
         <div>
             <h1>Risultati della ricerca:</h1>
             <div v-if="searchResults.length > 0" class="search-results">
-                <AppCard />
+                <div v-for="result in searchResults" :key="result.id" class="result-item">
+                    <AppCard :result="result" />
+                </div>
+
             </div>
             <div v-else>
                 <div>Nessun risultato trovato</div>
