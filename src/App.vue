@@ -23,6 +23,12 @@ export default {
 
   methods: {
 
+    getRandomLetter() {
+      const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+      const randomIndex = Math.floor(Math.random() * alphabet.length);
+      return alphabet[randomIndex];
+    },
+
     searchMedia(searchTerm) {
       this.searchTerm = searchTerm;
       let tvURL = `${store.apiURL}/tv${store.apiKey}`;
@@ -64,14 +70,23 @@ export default {
 
 
   created() {
-    this.searchMedia();
 
+    let letterSearch = this.getRandomLetter();
+    let startURL = `${store.apiURL}/movie${store.apiKey}`;
 
-  }
-
-
-}
-
+    let myStartURL = `${startURL}&language=it_IT&query=${letterSearch}`;
+    // Esegui la chiamata API al momento della creazione del componente
+    axios
+      .get(myStartURL)
+      .then(response => {
+        // Inizializza searchResults con i risultati della chiamata API
+        this.searchResults = response.data.results;
+      })
+      .catch(error => {
+        console.error('Errore durante la ricerca di film:', error);
+      });
+  },
+};
 </script>
 
 <template>
