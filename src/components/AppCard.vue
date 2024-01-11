@@ -25,7 +25,7 @@ export default {
 
 <template>
     <div class="app-card">
-        <h2>{{ result.title }}</h2>
+        <h2>{{ result.title || result.name }}</h2>
         <p><strong>Titolo Originale:</strong> {{ result.original_title || result.original_name }}
         </p>
         <p><strong>Lingua:</strong> <img :src="getLanguageFlag(result.original_language)" :alt="result.original_language">
