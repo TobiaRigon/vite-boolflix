@@ -27,8 +27,8 @@ export default {
                 </div>
 
             </div>
-            <div v-else>
-                <div>Nessun risultato trovato</div>
+            <div v-else class="new_search">
+                <div>Fai una ricerca...</div>
             </div>
         </div>
     </main>
@@ -49,6 +49,12 @@ main {
 
 
 
+    }
+
+    .new_search {
+        color: white;
+        margin-left: 40px;
+        font-size: 24px;
     }
 }
 </style>
