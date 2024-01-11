@@ -6,11 +6,7 @@ export default {
         result: Object
     },
 
-    data() {
-        return {
-            showDetailsOverlay: false,
-        };
-    },
+
 
 
 
@@ -54,13 +50,7 @@ export default {
             return starsHtml;
         },
 
-        showDetails() {
-            this.showDetailsOverlay = true;
-        },
 
-        hideDetails() {
-            this.showDetailsOverlay = false;
-        },
 
 
     }
@@ -85,28 +75,29 @@ export default {
             <p><strong>Overview:</strong> {{ result.overview }}</p>
         </div>
 
+
     </div>
 </template>
 
-<style scoped>
-.flag {
-    width: 15px;
-}
-
+<style scoped lang="scss">
 .app-card {
     position: relative;
     perspective: 1000px;
     transition: transform 0.8s;
-
     max-width: 388px;
     max-height: 663px;
-
-    margin: 20px 0;
+    margin: 15px 0;
     padding: 30px 21px;
     background-color: black;
-    border: 2px solid white;
     color: white;
     filter: drop-shadow(0px 3px 4px #000000);
+
+
+
+    .flag {
+        width: 15px;
+    }
+
 }
 
 .card-front {
@@ -130,25 +121,27 @@ export default {
     background-color: rgba(0, 0, 0);
     color: white;
     padding: 10px;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
     opacity: 0;
-    transition: opacity .4s, transition .8s;
-
+    transition: opacity 0.0s ease 0.20s;
+    transform: 0.8s;
+    border: 2px solid white;
+    transform: rotateY(0deg) scale(-1, 1);
 }
 
 .app-card:hover .details-overlay {
     opacity: 1;
-    transform: rotateY(0deg);
+
     transform-origin: center;
-    /* Imposta l'origine della trasformazione al centro */
-    transform: scale(-1, 1);
-    /* Inverti l'orientamento orizzontale */
+    transition: opacity 0.0s ease 0.20s;
+    transform: 0.8s;
+
+}
+
+app-card:hover {
+    transform: rotateY(0deg) scale(-1, 1);
 }
 </style>

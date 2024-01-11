@@ -38,7 +38,8 @@ export default {
 main {
     height: calc(100vh - 80px);
     overflow-y: auto;
-    padding-top: 40px;
+    padding-top: 15px;
+
 
     .search-results {
         margin: 0 auto;

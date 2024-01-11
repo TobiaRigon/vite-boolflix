@@ -49,7 +49,7 @@ header {
   .logo {
     color: red;
     padding-left: 40px;
-    font-size: 30px;
+    font-size: 35px;
     font-weight: bold;
   }
 
@@ -57,9 +57,11 @@ header {
     padding-right: 40px;
 
     input {
-
+      background-color: rgb(220, 220, 220);
       font-size: 20px;
     }
+
+
 
   }
 }
