@@ -11,8 +11,16 @@ export default {
 
     props: {
         searchResults: Array,
+        startSearchProp: Function,
     },
 
+    methods: {
+        eseguiStartSearch() {
+            if (typeof this.startSearchProp === 'function') {
+                this.startSearchProp();
+            }
+        }
+    },
 };
 
 </script>
@@ -28,7 +36,7 @@ export default {
 
             </div>
             <div v-else class="new_search">
-                <div>Fai una ricerca...</div>
+                <button @click="eseguiStartSearch">Mi sento fortunato!</button>
             </div>
         </div>
     </main>
@@ -56,6 +64,15 @@ main {
         color: white;
         margin-left: 40px;
         font-size: 24px;
+    }
+
+    button {
+
+        margin: 20px auto;
+        font-size: 25px;
+        border: 0;
+        padding: 5px;
+
     }
 }
 </style>

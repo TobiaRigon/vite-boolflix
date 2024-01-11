@@ -1,9 +1,7 @@
-<script >
+<script>
 import axios from 'axios';
-import AppHeader from './components/AppHeader.vue'
-import AppMain from './components/AppMain.vue'
-
-
+import AppHeader from './components/AppHeader.vue';
+import AppMain from './components/AppMain.vue';
 import { store } from './store';
 
 export default {
@@ -16,13 +14,11 @@ export default {
     return {
       store,
       searchResults: [],
-    }
+      searchTerm: '', // Aggiunto per evitare un problema di riferimento non definito
+    };
   },
 
-
-
   methods: {
-
     getRandomLetter() {
       const alphabet = 'abcdefghijklmnopqrstuvwxyz';
       const randomIndex = Math.floor(Math.random() * alphabet.length);
@@ -30,10 +26,8 @@ export default {
     },
 
     getRandomNumber(n) {
-      // Math.floor arrotonda per difetto il risultato di Math.random
       return Math.floor(Math.random() * n) + 1;
-    }
-    ,
+    },
 
     searchMedia(searchTerm) {
       this.searchTerm = searchTerm;
@@ -43,10 +37,6 @@ export default {
       let myMovieURL = `${movieURL}&language=it_IT&query=${this.searchTerm}`;
       let myTvURL = `${tvURL}&language=it_IT&query=${this.searchTerm}`;
 
-      // Log aggiuntivo per verificare il valore di myURL
-      console.log('myURL:', myMovieURL, myTvURL, searchTerm);
-
-      // Eseguire la chiamata axios per i film
       axios.get(myMovieURL)
         .then(movieResponse => {
           if (searchTerm === undefined) {
@@ -54,13 +44,8 @@ export default {
           } else {
             this.searchResults = movieResponse.data.results;
 
-
-
-
-            // Eseguire la seconda chiamata axios per le serie TV
             axios.get(myTvURL)
               .then(tvResponse => {
-                // Aggiungere i risultati delle serie TV agli altri risultati
                 this.searchResults = [...this.searchResults, ...tvResponse.data.results];
                 console.log(this.searchResults, this.searchResults.length);
               })
@@ -68,47 +53,39 @@ export default {
                 console.error("Errore durante la ricerca di serie TV:", tvError);
               });
           }
-
         })
         .catch(movieError => {
           console.error("Errore durante la ricerca di film:", movieError);
         });
-
-
-
-
     },
 
+    startSearch() {
+      let letterSearch = this.getRandomLetter();
+      let randomPage = this.getRandomNumber(10);
+      let startURL = `${store.apiURL}/movie${store.apiKey}`;
+      let myStartURL = `${startURL}&language=it_IT&page=${randomPage}&query=${letterSearch}&adult=false`;
+
+      axios
+        .get(myStartURL)
+        .then(response => {
+          this.searchResults = response.data.results;
+          console.log(myStartURL);
+        })
+        .catch(error => {
+          console.error('Errore durante la ricerca di film:', error);
+        });
+    },
   },
 
-  // pagina iniziale ricerca Random
   created() {
-
-    let letterSearch = this.getRandomLetter();
-    let randomPage = this.getRandomNumber(10)
-
-    let startURL = `${store.apiURL}/movie${store.apiKey}`;
-
-    let myStartURL = `${startURL}&language=it_IT&page=${randomPage}&query=${letterSearch}`;
-    // Esegui la chiamata API al momento della creazione del componente
-    axios
-      .get(myStartURL)
-      .then(response => {
-        // Inizializza searchResults con i risultati della chiamata API
-        this.searchResults = response.data.results;
-
-        console.log(myStartURL)
-      })
-      .catch(error => {
-        console.error('Errore durante la ricerca di film:', error);
-      });
+    this.startSearch();
   },
 };
 </script>
 
 <template>
   <AppHeader @SearchMedia="searchMedia" />
-  <AppMain :searchResults="searchResults" />
+  <AppMain :searchResults="searchResults" :startSearchProp="startSearch" />
 </template>
 
 <style scoped></style>
