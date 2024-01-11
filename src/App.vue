@@ -29,6 +29,12 @@ export default {
       return alphabet[randomIndex];
     },
 
+    getRandomNumber(n) {
+      // Math.floor arrotonda per difetto il risultato di Math.random
+      return Math.floor(Math.random() * n) + 1;
+    }
+    ,
+
     searchMedia(searchTerm) {
       this.searchTerm = searchTerm;
       let tvURL = `${store.apiURL}/tv${store.apiKey}`;
@@ -48,6 +54,9 @@ export default {
           } else {
             this.searchResults = movieResponse.data.results;
 
+
+
+
             // Eseguire la seconda chiamata axios per le serie TV
             axios.get(myTvURL)
               .then(tvResponse => {
@@ -59,28 +68,36 @@ export default {
                 console.error("Errore durante la ricerca di serie TV:", tvError);
               });
           }
+
         })
         .catch(movieError => {
           console.error("Errore durante la ricerca di film:", movieError);
         });
 
+
+
+
     },
 
   },
 
-
+  // pagina iniziale ricerca Random
   created() {
 
     let letterSearch = this.getRandomLetter();
+    let randomPage = this.getRandomNumber(10)
+
     let startURL = `${store.apiURL}/movie${store.apiKey}`;
 
-    let myStartURL = `${startURL}&language=it_IT&query=${letterSearch}`;
+    let myStartURL = `${startURL}&language=it_IT&page=${randomPage}&query=${letterSearch}`;
     // Esegui la chiamata API al momento della creazione del componente
     axios
       .get(myStartURL)
       .then(response => {
         // Inizializza searchResults con i risultati della chiamata API
         this.searchResults = response.data.results;
+
+        console.log(myStartURL)
       })
       .catch(error => {
         console.error('Errore durante la ricerca di film:', error);
