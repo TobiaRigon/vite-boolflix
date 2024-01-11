@@ -27,11 +27,39 @@ export default {
 
 <template>
   <header>
+    <div class="logo">
+      BOOTFLIX
+    </div>
     <div class="search-bar">
-      <input v-model="searchTerm" placeholder="Cerca film o serie TV" />
-      <button @click="$emit('SearchMedia', searchTerm)">Cerca</button>
+      <input @keyup.enter="$emit('SearchMedia', searchTerm)" v-model="searchTerm" placeholder="Cerca film o serie TV" />
+
     </div>
   </header>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+header {
+  height: 80px;
+  background-color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .logo {
+    color: red;
+    padding-left: 40px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .search-bar {
+    padding-right: 40px;
+
+    input {
+
+      font-size: 20px;
+    }
+
+  }
+}
+</style>

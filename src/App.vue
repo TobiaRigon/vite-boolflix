@@ -57,6 +57,7 @@ export default {
         .catch(movieError => {
           console.error("Errore durante la ricerca di film:", movieError);
         });
+
     },
 
   },
