@@ -8,6 +8,7 @@ export default {
 
 
 
+
     methods: {
 
         getImageUrl(posterPath) {
@@ -29,6 +30,14 @@ export default {
             // console.log(languageCode, flagPath);
 
             return flagPath;
+        },
+
+        convertToStars(voteAverage) {
+            // Trasforma il voto da 1 a 10 in un numero intero da 1 a 5
+            const convertedRating = Math.round(voteAverage / 2);
+
+            return convertedRating
+
         }
     }
 
@@ -47,12 +56,16 @@ export default {
         <p><strong>Lingua:</strong> <img :src="getLanguageFlag(result.original_language)" class="flag"
                 :alt="result.original_language">
         </p>
-        <p><strong>Voto:</strong> {{ result.vote_average }}</p>
+        <p><strong>Voto:</strong>
+            <i class="fa-solid fa-star"></i>
+            <FontAwesomeIcon icon="fas fa-coffee" />
+            {{ convertToStars(result.vote_average) }}
+        </p>
     </div>
 </template>
 
 <style scoped>
 .flag {
-    width: 13px;
+    width: 15px;
 }
 </style>
