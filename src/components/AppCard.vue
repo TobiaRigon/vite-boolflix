@@ -58,7 +58,7 @@ export default {
         </p>
         <p><strong>Voto:</strong>
             <i class="fa-solid fa-star"></i>
-            <FontAwesomeIcon icon="fas fa-coffee" />
+
             {{ convertToStars(result.vote_average) }}
         </p>
     </div>
