@@ -13,7 +13,7 @@ export default {
 
             let flagPath = `../assets/flags/${languageCode}.svg`;
             console
-            console.log(languageCode, flagPath);
+            // console.log(languageCode, flagPath);
 
             return flagPath;
         }

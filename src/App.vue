@@ -23,25 +23,39 @@ export default {
 
   methods: {
 
-    searchMovies(searchTerm) {
+    searchMedia(searchTerm) {
       this.searchTerm = searchTerm;
-      let myURL = `${store.apiURL}${store.apiKey}&language=it_IT&query=${this.searchTerm}`;
+      let tvURL = `${store.apiURL}/tv${store.apiKey}`;
+      let movieURL = `${store.apiURL}/movie${store.apiKey}`;
+
+      let myMovieURL = `${movieURL}&language=it_IT&query=${this.searchTerm}`;
+      let myTvURL = `${tvURL}&language=it_IT&query=${this.searchTerm}`;
 
       // Log aggiuntivo per verificare il valore di myURL
-      console.log('myURL:', myURL, searchTerm);
+      console.log('myURL:', myMovieURL, myTvURL, searchTerm);
 
-      axios.get(myURL)
-        .then(response => {
+      // Eseguire la chiamata axios per i film
+      axios.get(myMovieURL)
+        .then(movieResponse => {
           if (searchTerm === undefined) {
             this.searchResults = [];
           } else {
-            this.searchResults = response.data.results
-          };
+            this.searchResults = movieResponse.data.results;
 
-          console.log(this.searchResults, this.searchResults.length);
+            // Eseguire la seconda chiamata axios per le serie TV
+            axios.get(myTvURL)
+              .then(tvResponse => {
+                // Aggiungere i risultati delle serie TV agli altri risultati
+                this.searchResults = [...this.searchResults, ...tvResponse.data.results];
+                console.log(this.searchResults, this.searchResults.length);
+              })
+              .catch(tvError => {
+                console.error("Errore durante la ricerca di serie TV:", tvError);
+              });
+          }
         })
-        .catch(error => {
-          console.error("Errore durante la ricerca di film:", error);
+        .catch(movieError => {
+          console.error("Errore durante la ricerca di film:", movieError);
         });
     },
 
@@ -49,7 +63,7 @@ export default {
 
 
   created() {
-    this.searchMovies();
+    this.searchMedia();
 
 
   }
@@ -60,7 +74,7 @@ export default {
 </script>
 
 <template>
-  <AppHeader @SearchMovies="searchMovies" />
+  <AppHeader @SearchMedia="searchMedia" />
   <AppMain :searchResults="searchResults" />
 </template>
 
