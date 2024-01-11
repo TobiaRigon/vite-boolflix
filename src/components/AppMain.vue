@@ -20,7 +20,7 @@ export default {
 <template>
     <main>
         <div>
-            <h1>Risultati della ricerca:</h1>
+
             <div v-if="searchResults.length > 0" class="search-results">
                 <div v-for="result in searchResults" :key="result.id" class="result-item">
                     <AppCard :result="result" />
@@ -34,4 +34,21 @@ export default {
     </main>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+main {
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+    padding-top: 40px;
+
+    .search-results {
+        margin: 0 auto;
+        width: 85%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+
+
+    }
+}
+</style>

@@ -44,6 +44,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  filter: drop-shadow(0px 3px 4px #000000);
 
   .logo {
     color: red;
