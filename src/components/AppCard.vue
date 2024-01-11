@@ -33,15 +33,22 @@ export default {
         },
 
         convertToStars(voteAverage) {
-            // Trasforma il voto da 1 a 10 in un numero intero da 1 a 5
             const convertedRating = Math.round(voteAverage / 2);
 
-            return convertedRating
+            // Utilizza FontAwesome per generare le icone stella in base al voto
+            let starsHtml = "";
+            for (let i = 0; i < 5; i++) {
+                if (i < convertedRating) {
+                    starsHtml += '<i class="fas fa-star"></i>';
+                } else {
+                    starsHtml += '<i class="far fa-star"></i>';
+                }
+            }
 
+            return starsHtml;
         }
     }
-
-}
+};
 
 </script>
 
@@ -57,9 +64,7 @@ export default {
                 :alt="result.original_language">
         </p>
         <p><strong>Voto:</strong>
-            <i class="fa-solid fa-star"></i>
-
-            {{ convertToStars(result.vote_average) }}
+            <span v-html="convertToStars(result.vote_average)"></span>
         </p>
     </div>
 </template>
