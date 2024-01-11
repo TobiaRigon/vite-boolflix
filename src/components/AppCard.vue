@@ -41,9 +41,9 @@ export default {
             let starsHtml = "";
             for (let i = 0; i < 5; i++) {
                 if (i < convertedRating) {
-                    starsHtml += '<i class="fas fa-star"></i>';
+                    starsHtml += '<i class="fas fa-star" style="color: #FFD43B;"></i>';
                 } else {
-                    starsHtml += '<i class="far fa-star"></i>';
+                    starsHtml += '<i class="far fa-star" style="color: #1f1f1f;"></i>';
                 }
             }
 
@@ -81,16 +81,32 @@ export default {
 
 <style scoped lang="scss">
 .app-card {
+    display: flex;
+    align-items: center;
     position: relative;
     perspective: 1000px;
     transition: transform 0.8s;
     max-width: 388px;
+    min-height: 576.5px;
     max-height: 663px;
     margin: 15px 0;
     padding: 30px 21px;
     background-color: black;
     color: white;
     filter: drop-shadow(0px 3px 4px #000000);
+
+
+    h2,
+    p {
+        padding-bottom: 15px;
+
+
+    }
+
+
+    .fa-star {
+        color: yellow;
+    }
 
 
 
@@ -120,11 +136,10 @@ export default {
     height: 100%;
     background-color: rgba(0, 0, 0);
     color: white;
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     opacity: 0;
     transition: opacity 0.0s ease 0.20s;
     transform: 0.8s;

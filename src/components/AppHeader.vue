@@ -27,9 +27,7 @@ export default {
 
 <template>
   <header>
-    <div class="logo">
-      BOOTFLIX
-    </div>
+    <img class="logo" src="/bootstrap_logo.png" alt="bootstrap logo">
     <div class="search-bar">
       <input @keyup.enter="$emit('SearchMedia', searchTerm)" v-model="searchTerm" placeholder="Cerca film o serie TV" />
 
@@ -47,10 +45,10 @@ header {
   filter: drop-shadow(0px 3px 4px #000000);
 
   .logo {
-    color: red;
+
     padding-left: 40px;
-    font-size: 35px;
-    font-weight: bold;
+    height: 50px;
+
   }
 
   .search-bar {
