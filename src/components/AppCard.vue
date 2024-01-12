@@ -78,6 +78,20 @@ export default {
                 } catch (error) {
                     console.error("Errore durante il recupero del cast e dei generi:", error);
                 }
+            } else {
+                try {
+                    const response = await axios.get(
+                        `https://api.themoviedb.org/3/movie/${this.result.id}/credits${store.apiKey}`
+                    );
+
+                    // Estrai solo i primi 5 membri del cast
+                    this.cast = response.data.cast.slice(0, 5).map((member) => member.name);
+
+                    // Imposta hasDetailsLoaded su true per mostrare i dettagli solo se sono stati caricati
+                    this.hasDetailsLoaded = true;
+                } catch (error) {
+                    console.error("Errore durante il recupero del cast e dei generi:", error);
+                }
             }
         },
 
