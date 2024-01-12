@@ -1,8 +1,11 @@
 <script>
 import axios from 'axios';
+
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
+
 import { store } from './store';
+
 
 export default {
   components: {
@@ -31,10 +34,9 @@ export default {
     },
 
     hideLoader() {
-      // Nascondi il loader dopo un breve ritardo
       setTimeout(() => {
         this.loading = false;
-      }, 500); // Puoi regolare la durata del ritardo in millisecondi
+      }, 500); // Ritardo in ms
     },
 
 
@@ -43,7 +45,6 @@ export default {
       this.searchTerm = searchTerm;
       let tvURL = `${store.apiURL}/tv${store.apiKey}`;
       let movieURL = `${store.apiURL}/movie${store.apiKey}`;
-
       let myMovieURL = `${movieURL}&language=it_IT&query=${this.searchTerm}`;
       let myTvURL = `${tvURL}&language=it_IT&query=${this.searchTerm}`;
 
