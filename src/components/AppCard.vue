@@ -1,14 +1,23 @@
 <script >
+import axios from 'axios';
+import { store } from '../store';
 
 export default {
     name: "AppCard",
+
     props: {
         result: Object
     },
 
 
 
-
+    data() {
+        return {
+            store,
+            cast: [],
+            hasDetailsLoaded: false,
+        };
+    },
 
 
     methods: {
@@ -51,17 +60,42 @@ export default {
         },
 
 
+        async fetchCast() {
+            // Fai la richiesta all'API per ottenere il cast e i generi
+            try {
+                const response = await axios.get(
+                    `https://api.themoviedb.org/3/tv/${this.result.id}/season/1/aggregate_credits${store.apiKey}`
+                );
+
+                // Estrai solo i primi 5 membri del cast
+                this.cast = response.data.cast.slice(0, 5).map((member) => member.name);
+
+                // Estrai i generi
+                // this.genres = response.data.genres.map((genre) => genre.name);
+
+                // Imposta hasDetailsLoaded su true per mostrare i dettagli solo se sono stati caricati
+                this.hasDetailsLoaded = true;
+            } catch (error) {
+                console.error("Errore durante il recupero del cast e dei generi:", error);
+            }
+        },
 
 
-    }
+
+
+        // Altri metodi esistenti
+    },
 
 
 };
 
+
+
+
 </script>
 
 <template>
-    <div class="app-card" @mouseover="showDetails" @mouseleave="hideDetails">
+    <div class="app-card" @mouseover="fetchCast" @mouseleave="hideDetails">
 
         <img :src="getImageUrl(result.poster_path)" :alt="result.title || result.name" />
 
@@ -73,6 +107,7 @@ export default {
                     :alt="result.original_language"></p>
             <p><strong>Voto:</strong><span v-html="convertToStars(result.vote_average)"></span></p>
             <p><strong>Overview:</strong> {{ result.overview }}</p>
+            <p v-if="hasDetailsLoaded && cast.length > 0"><strong>Cast:</strong> {{ cast.join(', ') }}</p>
         </div>
 
 

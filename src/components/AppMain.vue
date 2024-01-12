@@ -1,6 +1,7 @@
 <script >
 
 import AppCard from './AppCard.vue';
+import axios from 'axios';
 
 export default {
     name: "AppMain",
