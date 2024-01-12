@@ -61,22 +61,23 @@ export default {
 
 
         async fetchCast() {
-            // Fai la richiesta all'API per ottenere il cast e i generi
-            try {
-                const response = await axios.get(
-                    `https://api.themoviedb.org/3/tv/${this.result.id}/season/1/aggregate_credits${store.apiKey}`
-                );
 
-                // Estrai solo i primi 5 membri del cast
-                this.cast = response.data.cast.slice(0, 5).map((member) => member.name);
+            // Verifica se il risultato è una serie TV (utilizzando la proprietà 'first_air_date')
+            if ('first_air_date' in this.result) {
+                // Fai la richiesta all'API solo per le serie TV
+                try {
+                    const response = await axios.get(
+                        `https://api.themoviedb.org/3/tv/${this.result.id}/season/1/aggregate_credits${store.apiKey}`
+                    );
 
-                // Estrai i generi
-                // this.genres = response.data.genres.map((genre) => genre.name);
+                    // Estrai solo i primi 5 membri del cast
+                    this.cast = response.data.cast.slice(0, 5).map((member) => member.name);
 
-                // Imposta hasDetailsLoaded su true per mostrare i dettagli solo se sono stati caricati
-                this.hasDetailsLoaded = true;
-            } catch (error) {
-                console.error("Errore durante il recupero del cast e dei generi:", error);
+                    // Imposta hasDetailsLoaded su true per mostrare i dettagli solo se sono stati caricati
+                    this.hasDetailsLoaded = true;
+                } catch (error) {
+                    console.error("Errore durante il recupero del cast e dei generi:", error);
+                }
             }
         },
 
@@ -95,7 +96,7 @@ export default {
 </script>
 
 <template>
-    <div class="app-card" @mouseover="fetchCast" @mouseleave="hideDetails">
+    <div class="app-card" @mouseover="fetchCast">
 
         <img :src="getImageUrl(result.poster_path)" :alt="result.title || result.name" />
 

@@ -58,7 +58,7 @@ export default {
             axios.get(myTvURL)
               .then(tvResponse => {
                 this.searchResults = [...this.searchResults, ...tvResponse.data.results];
-                console.log(this.searchResults, this.searchResults.length);
+                console.log(this.searchResults, myTvURL, this.searchResults.length);
                 this.hideLoader()
               })
               .catch(tvError => {
