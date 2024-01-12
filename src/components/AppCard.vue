@@ -89,7 +89,7 @@ export default {
     max-width: 388px;
     min-height: 576.5px;
     max-height: 663px;
-    margin: 15px 0;
+    // margin: 15px 0;
     padding: 30px 21px;
     background-color: black;
     color: white;
@@ -143,7 +143,7 @@ export default {
     opacity: 0;
     transition: opacity 0.0s ease 0.20s;
     transform: 0.8s;
-    border: 2px solid white;
+
     transform: rotateY(0deg) scale(-1, 1);
 }
 
